@@ -1,8 +1,10 @@
 # Dev-only MailDev SMTP + Web UI for local/integration tests.
 # Not a runtime dependency of @ninots/mail.
+# --mcp exposes Streamable HTTP MCP at http://localhost:1080/mcp (MailDev 3+).
 services:
   maildev:
     image: maildev/maildev
+    command: ["--mcp"]
     ports:
       - "1080:1080"
       - "1025:1025"
