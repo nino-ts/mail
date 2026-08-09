@@ -1,0 +1,60 @@
+{
+  "name": "@ninots/mail",
+  "main": "index.ts",
+  "module": "index.ts",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Mailer API (array/log/SMTP) for Ninots Framework",
+  "author": "Ninots Framework",
+  "keywords": [
+    "bun",
+    "mail",
+    "smtp",
+    "email",
+    "ninots"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "test": "bun test"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nino-ts/mail.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nino-ts/mail/issues"
+  },
+  "homepage": "https://github.com/nino-ts/mail#readme",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^7.0.0"
+  },
+  "peerDependencies": {
+    "bun": ">=1.0.0",
+    "typescript": "^7.0.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "import": "./index.ts",
+      "default": "./index.ts"
+    }
+  },
+  "types": "./index.ts",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist",
+    "dist/index.d.ts",
+    "index.ts",
+    "src"
+  ],
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "packageManager": "~bun@1.0.0"
+}
