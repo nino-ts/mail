@@ -21,6 +21,9 @@ biome.json
 tsconfig.tsbuildinfo
 node_modules/
 .DS_Store
+compose.yaml
+docker-compose.yml
+docker-compose.yaml
 
 # Hub orchestration / ops — never npm-publish (and should not live in public package git)
 AGENTS.md

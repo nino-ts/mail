@@ -3,7 +3,7 @@
   "main": "index.ts",
   "module": "index.ts",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Mailer API (array/log/SMTP) for Ninots Framework",
   "author": "Ninots Framework",
   "keywords": [
@@ -15,7 +15,10 @@
   ],
   "license": "MIT",
   "scripts": {
-    "test": "bun test"
+    "test": "bun test",
+    "maildev:up": "docker compose up -d",
+    "maildev:down": "docker compose down",
+    "test:maildev": "docker compose up -d && bun test tests/integration"
   },
   "publishConfig": {
     "access": "public",
