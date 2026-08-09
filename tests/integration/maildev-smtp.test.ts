@@ -137,4 +137,33 @@ describe("MailDev SMTP integration", () => {
             expect(delivered.text ?? "").toContain(text);
         },
     );
+
+    test.skipIf(!maildevAvailable)(
+        "MailDev MCP initialize succeeds at /mcp (compose --mcp)",
+        async () => {
+            const response = await fetch(`${REST_BASE}/mcp`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json, text/event-stream",
+                },
+                body: JSON.stringify({
+                    jsonrpc: "2.0",
+                    id: 1,
+                    method: "initialize",
+                    params: {
+                        protocolVersion: "2024-11-05",
+                        capabilities: {},
+                        clientInfo: { name: "ninots-mail-test", version: "0.1.2" },
+                    },
+                }),
+                signal: AbortSignal.timeout(3000),
+            });
+
+            expect(response.status).toBe(200);
+            expect(response.headers.get("mcp-session-id")).toBeTruthy();
+            const body = await response.text();
+            expect(body).toContain("maildev");
+        },
+    );
 });

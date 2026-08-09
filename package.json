@@ -3,7 +3,7 @@
   "main": "index.ts",
   "module": "index.ts",
   "type": "module",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Mailer API (array/log/SMTP) for Ninots Framework",
   "author": "Ninots Framework",
   "keywords": [
