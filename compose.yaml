@@ -1,0 +1,10 @@
+# Dev-only MailDev SMTP + Web UI for local/integration tests.
+# Not a runtime dependency of @ninots/mail.
+services:
+  maildev:
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    environment:
+      TZ: America/Sao_Paulo
