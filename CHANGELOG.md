@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2 — 2026-08-09
+
+- Dev tooling: MailDev Compose starts with `--mcp` (`http://localhost:1080/mcp`)
+- Integration guard: MCP `initialize` when MailDev is up
+- No public API changes; zero runtime deps
+
 ## 0.1.1 — 2026-08-09
 
 - Dev tooling: Docker Compose MailDev (`compose.yaml`) for local SMTP/REST harness

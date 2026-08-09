@@ -5,8 +5,9 @@ Mailer for Ninots — Laravel-inspired DX on Bun: **array** (tests), **log**, an
 ## Install
 
 ```bash
-bun add @ninots/mail@^0.1.1
+bun add @ninots/mail@^0.1.2
 ```
+
 
 ## API
 
@@ -66,13 +67,12 @@ docker compose down
 
 - SMTP: `localhost:1025`
 - Web UI / REST: `http://localhost:1080` (`GET /api/email`, `GET /api/healthz`)
+- Agent MCP (compose `command: ["--mcp"]`): `http://localhost:1080/mcp`
 - Integration tests skip if MailDev is not reachable
-
-Optional agent MCP (`maildev --mcp` → `http://localhost:1080/mcp`) is documented in the hub only — not required for consumers.
 
 ## Version
 
-`0.1.1` — Sprint 21: Mailer + array/log/SMTP; MailDev Docker harness for local SMTP tests.
+`0.1.2` — MailDev compose enables `--mcp`; SMTP/REST harness unchanged.
 
 ## License
 
