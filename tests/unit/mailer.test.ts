@@ -1,10 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import {
-    ArrayTransport,
-    Mailer,
-    MailManager,
-    toAddress,
-} from "../../index";
+import { ArrayTransport, Mailer, MailManager, toAddress } from "../../index";
 import type { Mailable } from "../../src/types";
 
 describe("toAddress", () => {
@@ -47,13 +42,10 @@ describe("Mailer + ArrayTransport", () => {
             from: { address: "noreply@example.com" },
         });
 
-        await mailer
-            .to("a@example.com")
-            .cc("c@example.com")
-            .sendOptions({
-                subject: "X",
-                html: "<p>Hi</p>",
-            });
+        await mailer.to("a@example.com").cc("c@example.com").sendOptions({
+            subject: "X",
+            html: "<p>Hi</p>",
+        });
 
         const message = transport.messages[0];
         expect(message?.to.map((a) => a.address)).toEqual(["a@example.com"]);
@@ -128,13 +120,9 @@ describe("Mailer + ArrayTransport", () => {
             from: { address: "from@example.com" },
         });
 
-        await expect(
-            mailer.send({ to: [], subject: "x", text: "y" }),
-        ).rejects.toThrow("at least one recipient");
+        await expect(mailer.send({ to: [], subject: "x", text: "y" })).rejects.toThrow("at least one recipient");
 
-        await expect(
-            mailer.send({ to: "a@example.com", subject: "x" }),
-        ).rejects.toThrow("html and/or text");
+        await expect(mailer.send({ to: "a@example.com", subject: "x" })).rejects.toThrow("html and/or text");
     });
 
     test("flush clears array transport", async () => {
