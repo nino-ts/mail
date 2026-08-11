@@ -71,22 +71,14 @@ export class Mailer {
     /**
      * Convenience: HTML body.
      */
-    public async html(
-        to: Address | string | Array<Address | string>,
-        subject: string,
-        html: string,
-    ): Promise<void> {
+    public async html(to: Address | string | Array<Address | string>, subject: string, html: string): Promise<void> {
         await this.send({ to, subject, html });
     }
 
     /**
      * Convenience: plain-text body.
      */
-    public async raw(
-        to: Address | string | Array<Address | string>,
-        subject: string,
-        text: string,
-    ): Promise<void> {
+    public async raw(to: Address | string | Array<Address | string>, subject: string, text: string): Promise<void> {
         await this.send({ to, subject, text });
     }
 }

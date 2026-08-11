@@ -28,9 +28,7 @@ export function toAddress(value: Address | string): Address {
 /**
  * Normalize one or many recipients.
  */
-export function toAddressList(
-    value: Address | string | Array<Address | string> | undefined,
-): Address[] {
+export function toAddressList(value: Address | string | Array<Address | string> | undefined): Address[] {
     if (value === undefined) {
         return [];
     }

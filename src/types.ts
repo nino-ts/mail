@@ -75,11 +75,7 @@ export type MailerConfig =
           port: number;
           secure?: boolean;
           auth?: { user: string; pass: string };
-          connect?: (options: {
-              hostname: string;
-              port: number;
-              tls: boolean;
-          }) => Promise<SmtpConnectionLike>;
+          connect?: (options: { hostname: string; port: number; tls: boolean }) => Promise<SmtpConnectionLike>;
       };
 
 /**

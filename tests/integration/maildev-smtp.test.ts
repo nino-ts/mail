@@ -98,72 +98,61 @@ describe("MailDev SMTP integration", () => {
             expect(maildevAvailable).toBe(true);
             return;
         }
-        console.warn(
-            "[maildev] SMTP/REST not reachable at localhost:1025 / :1080 — run `docker compose up -d` then re-run tests",
-        );
         expect(true).toBe(true);
     });
 
-    test.skipIf(!maildevAvailable)(
-        "MailManager smtp delivers to MailDev and REST asserts body",
-        async () => {
-            const subject = `ninots-maildev-${Date.now()}`;
-            const text = "Hello from @ninots/mail MailDev harness";
+    test.skipIf(!maildevAvailable)("MailManager smtp delivers to MailDev and REST asserts body", async () => {
+        const subject = `ninots-maildev-${Date.now()}`;
+        const text = "Hello from @ninots/mail MailDev harness";
 
-            const mail = new MailManager({
-                default: "smtp",
-                from: { address: "noreply@ninots.test", name: "Ninots Mail" },
-                mailers: {
-                    smtp: {
-                        driver: "smtp",
-                        host: SMTP_HOST,
-                        port: SMTP_PORT,
-                        secure: false,
-                    },
+        const mail = new MailManager({
+            default: "smtp",
+            from: { address: "noreply@ninots.test", name: "Ninots Mail" },
+            mailers: {
+                smtp: {
+                    driver: "smtp",
+                    host: SMTP_HOST,
+                    port: SMTP_PORT,
+                    secure: false,
                 },
-            });
+            },
+        });
 
-            await mail.mailer().send({
-                to: "inbox@example.com",
-                subject,
-                text,
-            });
+        await mail.mailer().send({
+            to: "inbox@example.com",
+            subject,
+            text,
+        });
 
-            const delivered = await waitForEmail((email) => email.subject === subject);
-            expect(delivered.to.some((addr) => addr.address === "inbox@example.com")).toBe(true);
-            expect(delivered.from.some((addr) => addr.address === "noreply@ninots.test")).toBe(
-                true,
-            );
-            expect(delivered.text ?? "").toContain(text);
-        },
-    );
+        const delivered = await waitForEmail((email) => email.subject === subject);
+        expect(delivered.to.some((addr) => addr.address === "inbox@example.com")).toBe(true);
+        expect(delivered.from.some((addr) => addr.address === "noreply@ninots.test")).toBe(true);
+        expect(delivered.text ?? "").toContain(text);
+    });
 
-    test.skipIf(!maildevAvailable)(
-        "MailDev MCP initialize succeeds at /mcp (compose --mcp)",
-        async () => {
-            const response = await fetch(`${REST_BASE}/mcp`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json, text/event-stream",
+    test.skipIf(!maildevAvailable)("MailDev MCP initialize succeeds at /mcp (compose --mcp)", async () => {
+        const response = await fetch(`${REST_BASE}/mcp`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json, text/event-stream",
+            },
+            body: JSON.stringify({
+                jsonrpc: "2.0",
+                id: 1,
+                method: "initialize",
+                params: {
+                    protocolVersion: "2024-11-05",
+                    capabilities: {},
+                    clientInfo: { name: "ninots-mail-test", version: "0.1.2" },
                 },
-                body: JSON.stringify({
-                    jsonrpc: "2.0",
-                    id: 1,
-                    method: "initialize",
-                    params: {
-                        protocolVersion: "2024-11-05",
-                        capabilities: {},
-                        clientInfo: { name: "ninots-mail-test", version: "0.1.2" },
-                    },
-                }),
-                signal: AbortSignal.timeout(3000),
-            });
+            }),
+            signal: AbortSignal.timeout(3000),
+        });
 
-            expect(response.status).toBe(200);
-            expect(response.headers.get("mcp-session-id")).toBeTruthy();
-            const body = await response.text();
-            expect(body).toContain("maildev");
-        },
-    );
+        expect(response.status).toBe(200);
+        expect(response.headers.get("mcp-session-id")).toBeTruthy();
+        const body = await response.text();
+        expect(body).toContain("maildev");
+    });
 });

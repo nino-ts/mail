@@ -62,9 +62,7 @@ describe("SmtpTransport", () => {
         await transport.send(baseMessage);
 
         expect(written[0]).toBe("EHLO ninots");
-        expect(written.some((line) => line.startsWith("MAIL FROM:<from@example.com>"))).toBe(
-            true,
-        );
+        expect(written.some((line) => line.startsWith("MAIL FROM:<from@example.com>"))).toBe(true);
         expect(written.some((line) => line.startsWith("RCPT TO:<to@example.com>"))).toBe(true);
         expect(written).toContain("DATA");
         expect(written.some((line) => line.includes("Subject: SMTP Hello"))).toBe(true);

@@ -21,7 +21,7 @@ export class LogTransport implements MailTransport {
     private readonly logger: (line: string) => void;
 
     constructor(options: LogTransportOptions = {}) {
-        this.logger = options.logger ?? ((line) => console.log(line));
+        this.logger = options.logger ?? ((_line) => {});
     }
 
     public async send(message: MailMessage): Promise<void> {
